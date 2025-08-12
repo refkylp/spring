@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: customers-service
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888/}
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+    import: configserver:http://config-server:8888
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://mysql-server:3306/petclinic?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: petclinic
+  sql:
+    init:
+      schema-locations: classpath*:db/mysql/schema.sql
+      data-locations: classpath*:db/mysql/data.sql
+      mode: ALWAYS

@@ -1,0 +1,26 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Jenv
+.java-version
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# Visual Studio Code
+.factorypath
+
+# Branch switching
+generated/
+
+**/.DS_Store
+
+# Terraform
+**/.terraform/
