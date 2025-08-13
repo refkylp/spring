@@ -4,8 +4,8 @@ module "master" {
   name               = "k8s-master-node"
   ami                = "ami-020cba7c55df1f615" # us-east-1 Canonical, Ubuntu, 24.04, amd64 noble image
   instance_type      = "t3a.medium"
-  subnet_id          = "subnet-069006f9830ccf5a2" #module.vpc.public_subnet_ids[0]
-  vpc_id             = "vpc-0d55f49d35490d88a"    #module.vpc.vpc_id
+  subnet_id          = "subnet-040678ede4417bf34" #module.vpc.public_subnet_ids[0]
+  vpc_id             = "vpc-0d149655e376ebe79"    #module.vpc.vpc_id
   key_name           = aws_key_pair.generated_key.key_name # "devops-keypem-va"
   security_group_ids = aws_security_group.ec2_sg.id
   user_data          = file("${path.module}/scripts/master_user_data.sh")
@@ -24,8 +24,8 @@ module "worker_1" {
   name               = "k8s-worker1-node"
   ami                = "ami-020cba7c55df1f615" # us-east-1 Canonical, Ubuntu, 24.04, amd64 noble image
   instance_type      = "t3a.medium"
-  subnet_id          = "subnet-069006f9830ccf5a2" #module.vpc.public_subnet_ids[1]
-  vpc_id             = "vpc-0d55f49d35490d88a"    #module.vpc.vpc_id
+  subnet_id          = "subnet-040678ede4417bf34" #module.vpc.public_subnet_ids[1]
+  vpc_id             = "vpc-0d149655e376ebe79"    #module.vpc.vpc_id
   key_name           = aws_key_pair.generated_key.key_name # "devops-keypem-va"
   security_group_ids = aws_security_group.ec2_sg.id
   user_data          = file("${path.module}/scripts/worker1_user_data.sh")
@@ -44,8 +44,8 @@ module "worker_2" {
   name               = "k8s-worker2-node"
   ami                = "ami-020cba7c55df1f615" # us-east-1 Canonical, Ubuntu, 24.04, amd64 noble image
   instance_type      = "t3a.medium"
-  subnet_id          = "subnet-069006f9830ccf5a2" #module.vpc.public_subnet_ids[2]
-  vpc_id             = "vpc-0d55f49d35490d88a"    #module.vpc.vpc_id
+  subnet_id          = "subnet-040678ede4417bf34" #module.vpc.public_subnet_ids[2]
+  vpc_id             = "vpc-0d149655e376ebe79"    #module.vpc.vpc_id
   key_name           = aws_key_pair.generated_key.key_name # "devops-keypem-va"
   security_group_ids = aws_security_group.ec2_sg.id
   user_data          = file("${path.module}/scripts/worker2_user_data.sh")
@@ -98,7 +98,7 @@ resource "null_resource" "join_workers" {
 
 
 resource "aws_security_group" "ec2_sg" {
-  vpc_id = "vpc-0d55f49d35490d88a"
+  vpc_id = "vpc-0d149655e376ebe79"
   name   = "K8S-CLUSTER-sg"
   tags = {
     Name = "K8S-CLUSTER-sg"
