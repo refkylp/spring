@@ -65,12 +65,11 @@ pipeline {
               sh '''
                 set -euo pipefail
                 export AWS_REGION=us-east-1
-                export EKS_CLUSTER=<eks-adin>
-                # export ROLE_ARN=arn:aws:iam::<acct>:role/jenkins-eks-role
-            
+                export EKS_CLUSTER=petclinic-cluster
+
                 aws sts get-caller-identity
-                aws eks update-kubeconfig --region "$AWS_REGION" --name "$EKS_CLUSTER" ${ROLE_ARN:+--role-arn "$ROLE_ARN"}
-            
+                aws eks update-kubeconfig --region "$AWS_REGION" --name "$EKS_CLUSTER"
+
                 kubectl version --short
                 kubectl config current-context
                 kubectl auth whoami
