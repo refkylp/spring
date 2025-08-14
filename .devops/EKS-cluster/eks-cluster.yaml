@@ -4,7 +4,9 @@ kind: ClusterConfig
 metadata:
   name: petclinic-cluster
   region: us-east-1
+
 availabilityZones: ["us-east-1a", "us-east-1b", "us-east-1c"]
+
 managedNodeGroups:
   - name: ng-1
     instanceType: t3a.medium
@@ -14,3 +16,21 @@ managedNodeGroups:
     volumeSize: 20
     ssh:
       allow: false
+
+iam:
+  withOIDC: true
+  serviceAccounts:
+    - metadata:
+        name: ebs-csi-controller-sa
+        namespace: kube-system
+      attachPolicyARNs:
+        - arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy
+      roleName: AmazonEKS_EBS_CSI_DriverRole
+      roleOnly: false
+
+addons:
+  - name: aws-ebs-csi-driver
+    version: latest
+    serviceAccountRoleARN: arn:aws:iam::467389992117:role/AmazonEKS_EBS_CSI_DriverRole
+    resolveConflicts: overwrite
+
