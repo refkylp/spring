@@ -60,24 +60,6 @@ pipeline {
                 sh ". ./.devops/jenkins/2nd-pipeline-prod-push-docker-images-to-ecr.sh"
             }
         }
-        stage('EKS Login & Sanity') {
-            steps {
-              sh '''
-                set -euo pipefail
-                export AWS_REGION=us-east-1
-                export EKS_CLUSTER=petclinic-cluster
-
-                aws sts get-caller-identity
-                aws eks update-kubeconfig --region "$AWS_REGION" --name "$EKS_CLUSTER"
-
-                kubectl version --short
-                kubectl config current-context
-                kubectl auth whoami
-                kubectl get ns
-                kubectl auth can-i create secret -n petclinic-prod
-              '''
-            }
-        }
         stage('Deploy App on Kubernetes Cluster'){
             steps {
                 echo 'Deploying App on Kubernetes Cluster'
