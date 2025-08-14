@@ -2,7 +2,7 @@
 echo 'Deploying App on EKS K8s Cluster'
 envsubst < .devops/k8s/petclinic_chart/values-template.yaml > .devops/k8s/petclinic_chart/values.yaml
 
-sed -i \"s/^version:.*/version: ${BUILD_NUMBER}/" .devops/k8s/petclinic_chart/Chart.yaml
+sed -i "s/^version:.*/version: ${BUILD_NUMBER}/" .devops/k8s/petclinic_chart/Chart.yaml
 
 AWS_REGION=$AWS_REGION helm repo add stable-petclinic s3://petclinic-charts-rk/stable/myapp/ || echo "repository name already exists"
 
